@@ -1,0 +1,11 @@
+Django>=4.2
+scikit-learn
+pandas
+numpy
+pdfplumber
+PyPDF2
+joblib
+nltk
+pytesseract
+pdf2image
+Pillow

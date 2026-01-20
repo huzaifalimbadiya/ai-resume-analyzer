@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <!-- Score Card -->
+    <div class="col-md-4">
+        <div class="card p-4 text-center mb-4">
+            <h4>Resume Score</h4>
+            <div class="display-1 fw-bold text-primary">{{ resume.score }}<span class="fs-4 text-muted">/100</span></div>
+            <div class="progress mt-3" style="height: 20px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: {{ resume.score }}%" aria-valuenow="{{ resume.score }}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p class="mt-2 text-muted">Predicted Role: <strong>{{ resume.predicted_role }}</strong></p>
+            <p class="text-muted small">Confidence: {{ resume.confidence_score }}%</p>
+        </div>
+        
+        <div class="card p-4 mb-4">
+            <h5>Suggested Improvements</h5>
+            <ul class="list-group list-group-flush">
+                {% for tip in suggestions %}
+                <li class="list-group-item text-warning">💡 {{ tip }}</li>
+                {% empty %}
+                <li class="list-group-item text-success">✅ Great job! Your resume looks solid.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Skills & Details -->
+    <div class="col-md-8">
+        <div class="card p-4 mb-4">
+            <h4 class="mb-3">Extracted Skills</h4>
+            <div>
+                {% for skill in resume.extracted_skills %}
+                <span class="badge bg-info text-dark me-1 mb-1">{{ skill }}</span>
+                {% empty %}
+                <span class="text-muted">No specific skills detected.</span>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="card p-4 mb-4">
+            <h4 class="mb-3">Missing Skills for {{ resume.predicted_role }}</h4>
+            <p class="text-muted">Consider learning these to improve your profile:</p>
+            <div>
+                {% for skill in resume.recommended_skills %}
+                <span class="badge bg-secondary me-1 mb-1">{{ skill }}</span>
+                {% empty %}
+                <span class="text-success">You have all the core skills for this role!</span>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'upload_resume' %}" class="btn btn-outline-primary">Analyze Another Resume</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

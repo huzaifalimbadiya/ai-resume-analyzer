@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card p-3 text-center bg-light">
+            <h3>{{ total_resumes }}</h3>
+            <p class="mb-0">Total Resumes Processed</p>
+        </div>
+    </div>
+    
+    <div class="col-md-9">
+        <div class="card p-3">
+            <h5>Role Distribution</h5>
+            <div class="d-flex flex-wrap">
+                {% for role, count in role_distribution.items %}
+                <div class="me-4 mb-2">
+                    <strong>{{ role }}:</strong> {{ count }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card p-4">
+    <h4>Recent Uploads</h4>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Role</th>
+                    <th>Score</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in resumes %}
+                <tr>
+                    <td>{{ r.uploaded_at|date:"M d, Y H:i" }}</td>
+                    <td>{{ r.predicted_role }}</td>
+                    <td>
+                        <span class="badge {% if r.score > 70 %}bg-success{% elif r.score > 40 %}bg-warning{% else %}bg-danger{% endif %}">
+                            {{ r.score }}
+                        </span>
+                    </td>
+                    <td><a href="{% url 'resume_result' r.pk %}" class="btn btn-sm btn-primary">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

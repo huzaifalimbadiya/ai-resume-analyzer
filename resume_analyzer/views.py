@@ -89,3 +89,9 @@ def dashboard(request):
         'role_distribution': roles
     }
     return render(request, 'dashboard.html', context)
+
+
+
+
+model_path = os.path.join(settings.BASE_DIR, 'trained_models', 'job_role_model.pkl')
+vector_path = os.path.join(settings.BASE_DIR, 'trained_models', 'tfidf_vectorizer.pkl')

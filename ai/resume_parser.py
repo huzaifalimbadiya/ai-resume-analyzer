@@ -1,7 +1,6 @@
 import pdfplumber
 import os
 import traceback
-import PyPDF2
 import pytesseract
 from pdf2image import convert_from_path, exceptions as pdf2image_exceptions
 import sys

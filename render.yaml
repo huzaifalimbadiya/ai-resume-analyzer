@@ -1,0 +1,8 @@
+services:
+  - type: web
+    env: python
+    buildCommand: bash build.sh
+    startCommand: gunicorn resume_project.wsgi
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9

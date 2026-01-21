@@ -7,3 +7,4 @@ numpy
 pandas
 nltk
 opencv-python-headless
+pdfplumber
